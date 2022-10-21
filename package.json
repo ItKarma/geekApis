@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Website personal with apis rest.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   },

@@ -1,13 +1,5 @@
-const express = require('express');
+import app from "./app.js";
 
-const app = express();
+const App = new app();
 
-app.get('/', (req, res)=>{
-  res.json({ message : "hellow"});
-});
-
-app.listen(3000, ()=>{
-  console.log("Servidor rodando..")
-});
-
-module.exports = app;
+App.start();
