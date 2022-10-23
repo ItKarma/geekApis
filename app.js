@@ -1,5 +1,5 @@
-import express from "express";
-import indexRouter from "./routes/router.js";
+import express from 'express';
+import  indexRouter from './routes/router.js';
 
 export default class App {
 
