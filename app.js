@@ -1,5 +1,6 @@
 import express from 'express';
 import  indexRouter from './routes/router.js';
+import morgan from 'morgan';
 
 export default class App {
 
@@ -11,6 +12,7 @@ export default class App {
   }
 
   middlewares(){
+    this.app.use(morgan('dev'));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
   }
