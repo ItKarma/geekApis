@@ -73,44 +73,4 @@ function ytDownload(url) {
     });
 }
 
-
-/*async function ytDownload(name){
-    new Promise((resolve, reject) => {
-        try {
-           const searchName = yts(name)
-                .then((data)=>{
-                    const url = [];
-                    const format = data.all;
-                    for (let i = 0 ; i < format.length ; i++) {
-                        if (format[i].type == 'video') {
-                            let vd = format[i];
-                            url.push(vd.url);
-                        }
-                    }
-
-                    const ytb = ytdl.getInfo(`${url[0]}`)
-                        .then((data)=>{
-                            let pormat = data.formats;
-                            let audios = [];
-                            let video = [];
-                            for (let i = 0; i < pormat.length ; i++) {
-                                if (pormat[i].container == 'mp4' && pormat[i].hasVideo == true && pormat[i].hasAudio == true) {
-                                  let vid = pormat[i];
-                                    video.push({
-                                        quality : vid.qualityLabel,
-                                        url : vid.url
-                                    })
-                                }
-                                if (pormat[i].mimeType == 'audio/webm; codecs=\"opus\"') {
-                                    let audio = pormat[i]
-                                    audios.push({
-                                        bitrate: audio.audioBitrate,
-                                        url: audio.url
-                                    })
-                                }*/
-                            // }
-                            
-                            // const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText;
-                            // const thumb = data.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnail
-
 export { ytSearch, ytDownload }
