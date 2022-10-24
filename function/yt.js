@@ -31,7 +31,62 @@ async function ytSearch(url){
    })
 }
 
-function ytDownload(url) {
+function ytDownloadMp4(url) {
+    return new Promise(async(resolve, reject) => {
+        const search = yts(url)
+            .then((data) => {
+                const url = []
+                const pormat = data.all
+                for (let i = 0; i < pormat.length; i++) {
+                    if (pormat[i].type == 'video'){
+                        let dapet = pormat[i]
+                        url.push(dapet.url)
+                    }
+                }
+        ytdl.getInfo(`${url[0]}`).then(async(getUrl) => {
+            let result = [];
+            for(let i = 0; i < getUrl.formats.length; i++) {
+                let item = getUrl.formats[i];
+                if (item.container == 'mp4' && item.hasVideo == true && item.hasAudio == true) {
+                    let { qualityLabel, contentLength } = item;
+                    let bytes = await bytesToSize(contentLength);
+                    result[i] = {
+                        video: item.url,
+                        quality: qualityLabel,
+                        size: bytes
+                    };
+                };
+            };
+            let resultFix = result.filter(x => x.video != undefined && x.size != undefined && x.quality != undefined) 
+            let tiny = await axios.get(`https://tinyurl.com/api-create.php?url=${resultFix[0].video}`);
+            let tinyUrl = tiny.data;
+            let title = getUrl.videoDetails.title;
+            let desc = getUrl.videoDetails.description;
+            let views = getUrl.videoDetails.viewCount;
+            let likes = getUrl.videoDetails.likes;
+            let dislike = getUrl.videoDetails.dislikes;
+            let channel = getUrl.videoDetails.ownerChannelName;
+            let uploadDate = getUrl.videoDetails.uploadDate;
+            let thumb = getUrl.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnails[0].url;
+            resolve({
+                title,
+                result: tinyUrl,
+                quality: resultFix[0].quality,
+                size: resultFix[0].size,
+                thumb,
+                views,
+                likes,
+                dislike,
+                channel,
+                uploadDate,
+                desc
+            });
+          })
+        }).catch(reject);
+    });
+};
+
+function ytDownloadMp3(url) {
     return new Promise((resolve, reject) => {
         const search = yts(url)
             .then((data) => {
@@ -85,4 +140,4 @@ function ytDownload(url) {
     });
 }
 
-export { ytSearch, ytDownload }
+export { ytSearch, ytDownloadMp3, ytDownloadMp4 }

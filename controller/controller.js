@@ -1,10 +1,10 @@
-import { ytSearch, ytDownload } from '../function/yt.js';
+import { ytSearch, ytDownloadMp3, ytDownloadMp4 } from '../function/yt.js';
 
-async function index(req,res){
+function index(req,res){
   res.json({ message : "tudo ok"});
 }
 
-async function ytMp3(req,res){
+function Search(req,res){
   try {
     let name = req.query.name;
     ytSearch(name).then((data)=>{
@@ -15,7 +15,7 @@ async function ytMp3(req,res){
   }
 }
 
-async function ytDown(req, res) {
+function ytDownMp3(req, res) {
   try {
     let name = req.query.name;
     ytDownload(name).then((data) => {
@@ -26,4 +26,16 @@ async function ytDown(req, res) {
   }
 }
 
-export default { index , ytMp3 , ytDown }
+function ytDownMp4(req, res) {
+  try {
+    let name = req.query.q;
+    ytDownloadMp4(name)
+      .then((data)=>{
+        res.status(200).send(data);
+    })
+  } catch (error) {
+    res.status(300).json({ message : "try again or look of a support !"})
+  }
+}
+
+export default { index , Search , ytDownMp3, ytDownMp4}
