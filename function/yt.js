@@ -33,7 +33,18 @@ async function ytSearch(url){
 
 function ytDownload(url) {
     return new Promise((resolve, reject) => {
-        ytdl.getInfo(url).then(async(getUrl) => {
+        const search = yts(url)
+            .then((data) => {
+                const url = []
+                const pormat = data.all
+                for (let i = 0; i < pormat.length; i++) {
+                    if (pormat[i].type == 'video'){
+                        let dapet = pormat[i]
+                        url.push(dapet.url)
+                    }
+                }
+
+        ytdl.getInfo(`${url[0]}`).then(async(getUrl) => {
             let result = [];
             for(let i = 0; i < getUrl.formats.length; i++) {
                 let item = getUrl.formats[i];
@@ -68,7 +79,8 @@ function ytDownload(url) {
                 channel,
                 uploadDate,
                 desc
-            });
+               })
+           })
         }).catch(reject);
     });
 }
