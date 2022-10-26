@@ -4,9 +4,9 @@ function index(req,res){
   res.json({ message : "tudo ok"});
 }
 
-function Search(req,res){
+function ytsearch(req,res){
   try {
-    let name = req.query.name;
+    let name = req.query.q
     ytSearch(name).then((data)=>{
       res.status(200).send(data);
     })
@@ -17,8 +17,8 @@ function Search(req,res){
 
 function ytDownMp3(req, res) {
   try {
-    let name = req.query.name;
-    ytDownload(name).then((data) => {
+    let name = req.query.q;
+    ytDownloadMp3(name).then((data) => {
       res.status(200).send(data);
     })
   } catch (error) {
@@ -38,4 +38,4 @@ function ytDownMp4(req, res) {
   }
 }
 
-export default { index , Search , ytDownMp3, ytDownMp4}
+export default { index , ytsearch , ytDownMp3, ytDownMp4}

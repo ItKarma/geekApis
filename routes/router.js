@@ -5,9 +5,9 @@ const router = Router();
 
 router.get('/', controller.index);
 
-router.get('/ytSearch', controller.Search);
-router.get('/downMp3', controller.ytDownMp3);
-router.get('/downMp4', controller.ytDownMp4)
+router.get('/ytsearch', controller.ytsearch);
+router.get('/downmp3', controller.ytDownMp3);
+router.get('/downmp4', controller.ytDownMp4)
 
 
 export default router;
