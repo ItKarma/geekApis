@@ -1,4 +1,4 @@
-import { ytSearch, ytDownloadMp3, ytDownloadMp4 } from '../function/yt.js';
+import { ytSearch, ytDownloadMp3, ytDownloadMp4 } from '../functions/yt.js';
 
 function index(req,res){
   res.json({ message : "tudo ok"});
